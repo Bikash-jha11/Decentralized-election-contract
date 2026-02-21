@@ -1,19 +1,26 @@
-Decentralized Exchange (DEX) - Solidity
-A peer-to-peer automated market maker (AMM) built on Ethereum. 
-This protocol allows users to swap ERC-20 tokens, provide liquidity to earn fees, and maintain a trustless environment without a central intermediary.
+Decentralized Election Contract (Rust/Anchor)
 
-## Core Features
+A transparent, tamper-proof voting system built with Rust. This contract leverages the "security by design" philosophy of Rust to ensure that votes are cast uniquely, counted accurately, and stored immutably.
 
-Automated Market Making (AMM): Uses the Constant Product formula $x \cdot y = k$ to determine asset prices.
+## Core Functionality
 
-Liquidity Provision: Users can deposit token pairs into the pool to receive Liquidity Provider (LP) tokens.
+Proposal Creation: Authorized administrators can initialize an election with specific candidates.
 
-Token Swaps: Instant execution of trades between supported ERC-20 pairs.
+One-Vote-Per-User: Uses PDA (Program Derived Address) mapping to ensure each public key can only vote once.
 
-Fee Mechanism: A percentage fee (e.g., 0.3%) is collected on every trade and distributed proportionally to LP holders.
+Real-time Results: Tallying is updated on-chain as soon as a vote transaction is confirmed.
 
-## Technical Architecture:
-The system is designed with modularity and security in mind:
-Factory Contract: Responsible for deploying and indexing individual exchange pairs.
-Pair Contract: The core logic engine that holds the reserves, manages the $k$ value, and executes the swap, mint, and burn functions.
-Router Contract:A wrapper that simplifies user interactions, handles multi-hop swaps, and manages "safety" checks like slippage tolerance.
+State Locking: Ability to open and close the election at specific timestamps.
+
+## Program Architecture
+Unlike Solidity’s "Contract" model, this Rust program follows a Stateless Logic model where data is stored in separate accounts.
+
+## Technical Specifications
+Language: Rust 1.70+
+
+Framework: Anchor (for Solana) or ink! (for Polkadot)
+
+Safety: Utilizes Rust’s strict type system to prevent integer overflows and unauthorized access.
+
+Storage: Efficient account serialization using Borsh.
+
